@@ -1,7 +1,12 @@
 plugins {
+    @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.kotlinMultiplatform)
+    @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.kotlinCocoapods)
+    @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.androidLibrary)
+    @Suppress("DSL_SCOPE_VIOLATION")
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -27,13 +32,18 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
+            isStatic = true
         }
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.runtime)
+                implementation(compose.animation)
             }
         }
         val commonTest by getting {
