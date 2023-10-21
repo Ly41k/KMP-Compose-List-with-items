@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.jetbrainsCompose)
+    @Suppress("DSL_SCOPE_VIOLATION")
+    alias(libs.plugins.resourcesMultiplatform)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -44,6 +46,8 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.runtime)
                 implementation(compose.animation)
+
+                implementation(libs.libres.compose)
             }
         }
         val commonTest by getting {
@@ -52,6 +56,10 @@ kotlin {
             }
         }
     }
+}
+
+libres {
+    generatedClassName = "MainRes"
 }
 
 android {
